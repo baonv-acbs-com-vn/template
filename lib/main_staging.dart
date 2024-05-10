@@ -1,6 +1,14 @@
-import 'package:demo/app/app.dart';
-import 'package:demo/bootstrap.dart';
+import 'package:demo/util/dependencies.dart';
+import 'package:flutter/foundation.dart';
 
-void main() {
-  bootstrap(() => const App());
+import 'app/config/environment.dart';
+import 'main_share.dart';
+
+void main() async {
+  mainShared(
+    registerDependencies: () => Dependencies.register(
+      environment: Environment.staging(),
+      isDebugBuild: kDebugMode,
+    ),
+  );
 }
