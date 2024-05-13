@@ -27,7 +27,6 @@ class BottomNavigationPage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              const SettingsRoute().push(context);
             },
             icon: const Icon(Icons.settings),
           ),
@@ -42,16 +41,16 @@ class BottomNavigationPage extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.article),
-            label: "Articles",
+            icon: Icon(Icons.tab),
+            label: "Tab1",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.handyman),
-            label: "Blank",
+            icon: Icon(Icons.tab_outlined),
+            label: "Tab2",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.handyman),
-            label: "Verified",
+            icon: Icon(Icons.tab_unselected_sharp),
+            label: "Tab3",
           ),
         ],
         currentIndex: navigationShell.currentIndex,

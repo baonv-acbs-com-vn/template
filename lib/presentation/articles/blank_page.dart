@@ -15,10 +15,6 @@ class BlankPage extends StatelessWidget {
           FilledButton(
             child: const Text("Open Article Full Screen"),
             onPressed: () {
-              const ArticleBlankDetailRoute(
-                aid: "4321",
-                url: "https://www.levinriegner.com/home",
-              ).go(context);
             },
           ),
           FilledButton(

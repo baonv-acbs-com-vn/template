@@ -60,10 +60,6 @@ class ArticlesView extends StatelessWidget {
                         () {
                           Flogger.i(
                               "Navigate to article with id ${article.id}");
-                          ArticleDetailRoute(
-                            aid: "4321",
-                            url: article.url!,
-                          ).go(context);
                         },
                       );
                     },

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:app_versioning/app_versioning.dart';
 import 'package:demo/util/extensions/context_extension.dart';
 import 'package:demo/util/extensions/go_router_extension.dart';
@@ -33,10 +35,10 @@ abstract class Dependencies {
   }) async {
     // Logging
     // TODO Logging
-    // _initLogging(
-    //   debugBuild: isDebugBuild,
-    //   internalEnvironment: environment.internal,
-    // );
+    _initLogging(
+      debugBuild: isDebugBuild,
+      internalEnvironment: environment.internal,
+    );
 
     // Environment
     getIt.registerSingleton<Environment>(environment);
@@ -77,18 +79,18 @@ abstract class Dependencies {
         Flogger.i("On Unauthorized");
         // TODO clearAllUserData in Dependencies
         // await Dependencies.clearAllUserData();
-        // final context = NavigatorHolder.rootNavigatorKey.currentState!.context;
-        // if (!context.mounted) return;
-        // context.router.go("/");
+        final context = NavigatorHolder.rootNavigatorKey.currentState!.context;
+        if (!context.mounted) return;
+        context.router.go("/");
         // Give some time for the navigation to complete and show alert
         await Future.delayed(const Duration(milliseconds: 500));
-        // if (!context.mounted) return;
-        // AlertService.showAlert(
-        //   context: context,
-        //   title: context.l10n.loggedOutAlertTitle,
-        //   message: context.l10n.loggedOutAlertDescription,
-        //   type: AlertType.error,
-        // );
+        if (!context.mounted) return;
+        AlertService.showAlert(
+          context: context,
+          title: context.l10n.loggedOutAlertTitle,
+          message: context.l10n.loggedOutAlertDescription,
+          type: AlertType.error,
+        );
       },
       debugMode: isDebugBuild,
     );
@@ -239,6 +241,61 @@ abstract class Dependencies {
             }
           }
         },
+      );
+    }
+  }
+
+
+  static void _initLogging({
+    required bool debugBuild,
+    required bool internalEnvironment,
+  }) {
+    const defaultLoggerName = "App";
+    if (debugBuild) {
+      Flogger.init(config: const FloggerConfig(loggerName: defaultLoggerName));
+      Flogger.registerListener((record) {
+        log(record.printable());
+        if (record.stackTrace != null) log(record.stackTrace.toString());
+      });
+    } else {
+      Flogger.init(
+        config: const FloggerConfig(
+          loggerName: defaultLoggerName,
+          showDebugLogs: false,
+        ),
+      );
+      // Register Datadog listener
+      Flogger.registerListener((record) {
+        if (record.loggerName == defaultLoggerName) {
+          // TODO Datadog
+          // Datadog.logRecord(record.printable(), record.level);
+        }
+      });
+      // Register Crashlytics log listener
+      Flogger.registerListener((record) {
+        if (record.loggerName == defaultLoggerName) {
+          // TODO Firebase
+          // FirebaseCrashlytics.instance.log(record.printable());
+        }
+      });
+      // Register Crashlytics error listener
+      Flogger.registerListener((record) {
+        if (record.level == Level.SEVERE) {
+          // TODO Firebase
+          // FirebaseCrashlytics.instance.recordError(
+          //   record.printable(),
+          //   record.stackTrace,
+          // );
+        }
+      });
+    }
+    // Save logs for console
+    if (internalEnvironment || debugBuild) {
+      Flogger.registerListener(
+            (record) => LogConsole.add(
+          OutputEvent(record.level, [record.printable()]),
+          bufferSize: 1000, // Remember the last X logs
+        ),
       );
     }
   }

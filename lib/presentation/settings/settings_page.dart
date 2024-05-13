@@ -34,7 +34,6 @@ class SettingsPage extends StatelessWidget with PoppableMixin {
             FilledButton(
               child: const Text("Account Details"),
               onPressed: () {
-                const AccountDetailsRoute(name: "Alex").push(context);
               },
             ),
             // App Version

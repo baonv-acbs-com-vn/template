@@ -104,39 +104,27 @@ class ConsoleDeeplinksRoute extends GoRouteData {
 // Example: https://github.com/flutter/packages/blob/main/packages/go_router_builder/example/lib/stateful_shell_route_example.dart
 @TypedStatefulShellRoute<BottomNavigationPageData>(
   branches: [
-    TypedStatefulShellBranch<ArticlesBranchData>(
+    TypedStatefulShellBranch<Tab1BranchData>(
       routes: [
-        TypedGoRoute<ArticlesRoute>(
-          path: "/articles",
-          name: "ArticlesPage",
-          routes: [
-            TypedGoRoute<ArticleDetailRoute>(
-              path: ":aid",
-              name: "ArticleDetailPage",
-            ),
-          ],
+        TypedGoRoute<Tab1Route>(
+          path: "/tab1",
+          name: "tab1"
         )
       ],
     ),
-    TypedStatefulShellBranch<BlankBranchData>(
+    TypedStatefulShellBranch<Tab2BranchData>(
       routes: [
-        TypedGoRoute<BlankRoute>(
-          path: "/blank",
-          name: "BlankPage",
-          routes: [
-            TypedGoRoute<ArticleBlankDetailRoute>(
-              path: ":aid",
-              name: "ArticleBlankDetailPage",
-            ),
-          ],
+        TypedGoRoute<Tab2Route>(
+            path: "/tab2",
+            name: "tab2"
         )
       ],
     ),
-    TypedStatefulShellBranch<LoginBranchData>(
+    TypedStatefulShellBranch<Tab3BranchData>(
       routes: [
-        TypedGoRoute<LoginRoute>(
-          path: "/login",
-          name: "LoginPage",
+        TypedGoRoute<Tab3Route>(
+            path: "/tab3",
+            name: "tab3"
         )
       ],
     ),
@@ -161,18 +149,7 @@ class BottomNavigationPageData extends StatefulShellRouteData {
   }
 }
 
-class ArticlesBranchData extends StatefulShellBranchData {
-  const ArticlesBranchData();
-}
 
-class ArticlesRoute extends GoRouteData {
-  const ArticlesRoute();
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const ArticlesPage();
-  }
-}
 
 class ArticleDetailRoute extends GoRouteData {
   final String aid;
@@ -283,20 +260,69 @@ class AccountDetailsRoute extends GoRouteData {
 //#endregion
 
 //#region Authentication
-// @TypedGoRoute<LoginRoute>(
-//   path: "/login",
-//   name: "LoginPage",
-// )
+@TypedGoRoute<LoginRoute>(
+  path: "/login",
+  name: "LoginPage",
+)
 class LoginRoute extends GoRouteData {
   const LoginRoute();
 
   // Use parent navigator to navigate without bottom bar
-  // static final GlobalKey<NavigatorState> $parentNavigatorKey =
-  //     NavigatorHolder.rootNavigatorKey;
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      NavigatorHolder.rootNavigatorKey;
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const CounterPage();
+    return const LoginPage();
   }
 }
+//#endregion
+
+
+//#region Main tab
+class Tab1BranchData extends StatefulShellBranchData {
+  const Tab1BranchData();
+}
+
+class Tab1Route extends GoRouteData {
+  const Tab1Route();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return Container(
+      child: Text('Tab1Route'),
+    );
+  }
+}
+
+class Tab2BranchData extends StatefulShellBranchData {
+  const Tab2BranchData();
+}
+
+class Tab2Route extends GoRouteData {
+  const Tab2Route();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return Container(
+      child: Text('Tab2Route'),
+    );
+  }
+}
+
+class Tab3BranchData extends StatefulShellBranchData {
+  const Tab3BranchData();
+}
+
+class Tab3Route extends GoRouteData {
+  const Tab3Route();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return Container(
+      child: Text('Tab3Route'),
+    );
+  }
+}
+
 //#endregion

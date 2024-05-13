@@ -10,6 +10,7 @@ List<RouteBase> get $appRoutes => [
       $consoleRoute,
       $bottomNavigationPageData,
       $settingsRoute,
+      $loginRoute,
     ];
 
 RouteBase get $consoleRoute => GoRouteData.$route(
@@ -95,43 +96,27 @@ RouteBase get $bottomNavigationPageData => StatefulShellRouteData.$route(
         StatefulShellBranchData.$branch(
           routes: [
             GoRouteData.$route(
-              path: '/articles',
-              name: 'ArticlesPage',
-              factory: $ArticlesRouteExtension._fromState,
-              routes: [
-                GoRouteData.$route(
-                  path: ':aid',
-                  name: 'ArticleDetailPage',
-                  factory: $ArticleDetailRouteExtension._fromState,
-                ),
-              ],
+              path: '/tab1',
+              name: 'tab1',
+              factory: $Tab1RouteExtension._fromState,
             ),
           ],
         ),
         StatefulShellBranchData.$branch(
           routes: [
             GoRouteData.$route(
-              path: '/blank',
-              name: 'BlankPage',
-              factory: $BlankRouteExtension._fromState,
-              routes: [
-                GoRouteData.$route(
-                  path: ':aid',
-                  name: 'ArticleBlankDetailPage',
-                  parentNavigatorKey:
-                      ArticleBlankDetailRoute.$parentNavigatorKey,
-                  factory: $ArticleBlankDetailRouteExtension._fromState,
-                ),
-              ],
+              path: '/tab2',
+              name: 'tab2',
+              factory: $Tab2RouteExtension._fromState,
             ),
           ],
         ),
         StatefulShellBranchData.$branch(
           routes: [
             GoRouteData.$route(
-              path: '/login',
-              name: 'LoginPage',
-              factory: $LoginRouteExtension._fromState,
+              path: '/tab3',
+              name: 'tab3',
+              factory: $Tab3RouteExtension._fromState,
             ),
           ],
         ),
@@ -143,11 +128,11 @@ extension $BottomNavigationPageDataExtension on BottomNavigationPageData {
       const BottomNavigationPageData();
 }
 
-extension $ArticlesRouteExtension on ArticlesRoute {
-  static ArticlesRoute _fromState(GoRouterState state) => const ArticlesRoute();
+extension $Tab1RouteExtension on Tab1Route {
+  static Tab1Route _fromState(GoRouterState state) => const Tab1Route();
 
   String get location => GoRouteData.$location(
-        '/articles',
+        '/tab1',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -160,18 +145,11 @@ extension $ArticlesRouteExtension on ArticlesRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $ArticleDetailRouteExtension on ArticleDetailRoute {
-  static ArticleDetailRoute _fromState(GoRouterState state) =>
-      ArticleDetailRoute(
-        aid: state.pathParameters['aid']!,
-        url: state.uri.queryParameters['url'],
-      );
+extension $Tab2RouteExtension on Tab2Route {
+  static Tab2Route _fromState(GoRouterState state) => const Tab2Route();
 
   String get location => GoRouteData.$location(
-        '/articles/${Uri.encodeComponent(aid)}',
-        queryParams: {
-          if (url != null) 'url': url,
-        },
+        '/tab2',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -184,52 +162,11 @@ extension $ArticleDetailRouteExtension on ArticleDetailRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $BlankRouteExtension on BlankRoute {
-  static BlankRoute _fromState(GoRouterState state) => const BlankRoute();
+extension $Tab3RouteExtension on Tab3Route {
+  static Tab3Route _fromState(GoRouterState state) => const Tab3Route();
 
   String get location => GoRouteData.$location(
-        '/blank',
-      );
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  void replace(BuildContext context) => context.replace(location);
-}
-
-extension $ArticleBlankDetailRouteExtension on ArticleBlankDetailRoute {
-  static ArticleBlankDetailRoute _fromState(GoRouterState state) =>
-      ArticleBlankDetailRoute(
-        aid: state.pathParameters['aid']!,
-        url: state.uri.queryParameters['url'],
-      );
-
-  String get location => GoRouteData.$location(
-        '/blank/${Uri.encodeComponent(aid)}',
-        queryParams: {
-          if (url != null) 'url': url,
-        },
-      );
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  void replace(BuildContext context) => context.replace(location);
-}
-
-extension $LoginRouteExtension on LoginRoute {
-  static LoginRoute _fromState(GoRouterState state) => const LoginRoute();
-
-  String get location => GoRouteData.$location(
-        '/login',
+        '/tab3',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -283,6 +220,30 @@ extension $AccountDetailsRouteExtension on AccountDetailsRoute {
         queryParams: {
           if (name != null) 'name': name,
         },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $loginRoute => GoRouteData.$route(
+      path: '/login',
+      name: 'LoginPage',
+      parentNavigatorKey: LoginRoute.$parentNavigatorKey,
+      factory: $LoginRouteExtension._fromState,
+    );
+
+extension $LoginRouteExtension on LoginRoute {
+  static LoginRoute _fromState(GoRouterState state) => const LoginRoute();
+
+  String get location => GoRouteData.$location(
+        '/login',
       );
 
   void go(BuildContext context) => context.go(location);

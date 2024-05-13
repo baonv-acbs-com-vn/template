@@ -11,11 +11,11 @@ class AuthTokenInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     // TODO add options.headers["Authorization"]
-    // final token = await getBearerToken();
-    //
-    // if (token != null) {
-    //   options.headers["Authorization"] = "Bearer $token";
-    // }
+    final token = await getBearerToken();
+
+    if (token != null) {
+      options.headers["Authorization"] = "Bearer $token";
+    }
 
     super.onRequest(options, handler);
   }

@@ -109,10 +109,6 @@ class _AppState extends State<App> with WidgetsBindingObserver {
         buildWhen: (previous, current) => previous.name != current.name,
         builder: (context, adaptiveThemeState) {
           return AppView(
-            debugShowMaterialGrid: false,
-            // context.watch<QaConfig>().debugShowMaterialGrid,
-            showSemanticsDebugger: false,
-            // context.watch<QaConfig>().showSemanticsDebugger,
             themeMode: adaptiveThemeState == AdaptiveThemeState.light
                 ? ThemeMode.light
                 : ThemeMode.dark,
