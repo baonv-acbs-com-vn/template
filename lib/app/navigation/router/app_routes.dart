@@ -3,8 +3,6 @@ import 'package:demo/presentation/authentication/login/login_page.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../counter/view/counter_page.dart';
-import '../../../presentation/articles/articles_page.dart';
 import '../../../presentation/articles/blank_page.dart';
 import '../../../presentation/articles/detail/article_detail_page.dart';
 import '../../../presentation/bottom_navigation/bottom_navigation_page.dart';
@@ -38,7 +36,7 @@ class ConsoleRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const CounterPage();
+    return Container();
   }
 }
 
@@ -52,7 +50,7 @@ class ConsoleEnvironmentsRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const CounterPage();
+    return Container();
   }
 }
 
@@ -66,7 +64,7 @@ class ConsoleLoginsRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const CounterPage();
+    return Container();
   }
 }
 
@@ -80,7 +78,7 @@ class ConsoleQaConfigRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const CounterPage();
+    return Container();
   }
 }
 
@@ -94,7 +92,7 @@ class ConsoleDeeplinksRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const CounterPage();
+    return Container();
   }
 }
 
